@@ -9,15 +9,20 @@
   <!-- Reviews -->
   <article class="comments" v-if="reviews.length > 0">
     <div v-for="review in reviews">
+      <review-stars :value="review.comments_rating" :disabled="true"></review-stars>
       <i class="post-date">${review.comments_date}</i>
+      <!-- temporary vue component -->
+      
+      <!-- end component -->
       <p>${review.comments_copy}</p>
     </div>
   </article>
-  <article class="add-comment">
+  <article class="add-comment" :class="{ floatRight : reviews.length > 0 }">
     <h4 class="reviw-heading">Add a Review</h4>
     <span class="hidden movId">{{movie}}</span>
-    <input type="range" name="myRange" id="myRange" min="0" max="5" step="1" v-model="numStars">
-    <label for="myRange">${numStars} - Star Review</label>
+    <review-stars v-model="numStars" :disabled="false"></review-stars>
+    <!-- <input type="range" name="myRange" id="myRange" min="0" max="5" step="1" v-model="numStars">
+    <label for="myRange">${numStars} - Star Review</label> -->
     <textarea name="review" id="review" placeholder="What did you think?" v-model="review"
     ></textarea>
     <input type="submit" value="Submit Your Review" v-on:click="addReview">
